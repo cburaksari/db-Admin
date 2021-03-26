@@ -1,0 +1,52 @@
+<div class="container">
+  <h3 mat-dialog-title>Edit Table</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Name" [(ngModel)]="data.name" name="name" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="tag">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Tag</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.tag}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="datatype">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Datatype</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.datatype}}</mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+        <mat-cell *matCellDef="let row; let i=index;">
+          <button mat-icon-button color="accent" (click)="UpdateColumn(row.id,row.name,row.tag,row.datatype)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+  
+          <button mat-icon-button color="accent" (click)="DeleteColumn(row.id)">
+            <mat-icon aria-label="Edit">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit" [disabled]="!formControl.valid" (click)="OnEdit()">Save</button>
+      <button mat-button (click)="OnCancel()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

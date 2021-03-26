@@ -1,0 +1,56 @@
+
+version: '3'
+
+services:
+
+  dbadmin-postgres:
+    image: "postgres:9.6-alpine"
+    container_name: dbadmin-postgres
+    volumes:
+      - dbadmin-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=dbadmin
+      - POSTGRES_USER=dbadmin
+      - POSTGRES_PASSWORD=dbadmin
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: cburaksari22@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "16543:80"
+    links:
+      - dbadmin-postgres
+    restart: unless-stopped
+
+  db-admin-app:
+    build: ./db-admin-app
+    container_name: db-admin-app
+
+    environment:
+      - DB_SERVER=dbadmin-postgres
+      - POSTGRES_DB=dbadmin
+      - POSTGRES_USER=dbadmin
+      - POSTGRES_PASSWORD=dbadmin
+    ports:
+      - 8081:8081
+    links:
+      - dbadmin-postgres
+
+  db-admin-ui:
+    build: ./db-admin-ui
+    container_name: db-admin-ui
+    ports:
+      - 4200:80
+    links:
+      - db-admin-app
+
+volumes:
+  dbadmin-data:
+  pgadmin:
