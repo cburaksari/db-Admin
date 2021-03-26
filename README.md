@@ -2,7 +2,7 @@
 With this project, using the table information added to the datatable, tables can be updated, deleted, and added to the database in real time. Also columns can be specified.
 Every operation affects the database.
 
-##Important Note :
+## Important Note :
 ```shell
 Before entering the pgadmin console, the user must run the script.sql file located in the main folder. Otherwise, database errors may occur.
 ```
