@@ -4,7 +4,8 @@ Every operation affects the database.
 
 ## Important Note :
 ```shell
-Before entering the pgadmin console, the user must run the script.sql file located in the main folder. Otherwise, database errors may occur.
+- Before entering the pgadmin console, the user must run the script.sql file located in the main folder. Otherwise, database errors may occur.
+- in the adding new column part user must enter POSTGRESQL datatypes in the datatype part (`int,varchar...`). Otherwise, insert wil not happen.
 ```
 
 ## DB and Backend and Frontend infos
@@ -38,5 +39,6 @@ docker-compose up --build
 ```
 
 ### Things to do
-When the user adds a new table from the interface, a table with this name is created in the database. The same actions will be provided 
+- When the user adds a new table from the interface, a table with this name is created in the database. The same actions will be provided 
 when the table is updated and deleted.
+- In the adding new column section datatype part will be a selection.
